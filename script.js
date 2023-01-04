@@ -47,7 +47,8 @@ let totalScore = {
 function getComputerChoice() {
   let array = ['Rock', 'Paper', 'Scissors']
   let randomNumber = Math.floor(Math.random() * (array.length))
-  console.log({ computerChoice: array[randomNumber] })
+  // console.log({ computerChoice: array[randomNumber] })
+  
   return array[randomNumber];
 }
 
@@ -58,7 +59,7 @@ function getComputerChoice() {
 // human loses - getResult('Scissors', 'Rock') 👉 -1
 // human draws - getResult('Rock', 'Rock') 👉 0
 function getResult(playerChoice, computerChoice) {
-  console.log('getResult call')
+  // console.log('getResult call')
   let score;
   // return the result of score based on if you won, drew, or lost
   if ((playerChoice == 'Rock' && computerChoice == 'Scissors') || (playerChoice == 'Scissors' && computerChoice == 'Paper') || (playerChoice == 'Rock' && computerChoice == 'Paper')) {
@@ -87,32 +88,39 @@ function getResult(playerChoice, computerChoice) {
 
 // ** showResult updates the DOM to `You Win!` or `You Lose!` or `It's a Draw!` based on the score. Also shows Player Choice vs. Computer Choice**
 function showResult(score, playerChoice, computerChoice) {
-  console.log('Show result call')
+  // console.log('Show result call')
   // Hint: on a score of -1
   // You should do result.innerText = 'You Lose!'
   // Don't forget to grab the div with the 'result' id!
+  
+  var wonAudio = new Audio("sound/won.mp3");
+  var looseAudio = new Audio("sound/loose.mp3");
+  var drawAudio = new Audio("sound/draw.mp3");
   let resultDiv = document.getElementById('result');
   let playerScoreDiv = document.getElementById('player-score');
   let computerChoiceDiv = document.getElementById('hands');
   playerScoreDiv.innerText = `Player Score ${totalScore.playerScore},Computer Score ${totalScore.computerScore}`;
   computerChoiceDiv.innerText = `👨🏻‍🦰${playerChoice} vs 🤖${computerChoice}`;
   if (score == 1) {
+    wonAudio.play();
     resultDiv.innerText = 'You Won🏆!';
   } else if (score == 0) {
+    drawAudio.play();
     resultDiv.innerText = 'You Draw the Match 📍';
   } else {
+    looseAudio.play();
     resultDiv.innerText = 'You Lose!😔'
   }
 }
 
 // ** Calculate who won and show it on the screen **
 function onClickRPS(playerChoice) {
-  console.log({ playerChoice })
+  // console.log({ playerChoice })
   let computerChoice = getComputerChoice();
-  console.log({ computerChoice })
+  // console.log({ computerChoice })
   let result = getResult(playerChoice, computerChoice);
   showResult(result, playerChoice, computerChoice);
-  console.log({ result })
+  // console.log({ result })
 
 
 }
@@ -120,7 +128,7 @@ function onClickRPS(playerChoice) {
 // ** Make the RPS buttons actively listen for a click and do something once a click is detected **
 
 function playGame() {
-  console.log('Play game call')
+  // console.log('Play game call')
 
   // use querySelector to select all RPS Buttons
 
@@ -154,7 +162,7 @@ function endGame() {
   computerChoiceDiv.innerText = "";
   totalScore.computerScore = 0;
   totalScore.playerScore = 0;
-  console.log('end game call')
+  // console.log('end game call')
 }
 
 playGame()
